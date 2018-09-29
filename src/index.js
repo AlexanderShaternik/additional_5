@@ -1,15 +1,19 @@
 module.exports = function check(str, bracketsConfig) {
-	bracketsConfig.forEach((a, i) => {
-		while (str.includes(bracketsConfig[i][0] + bracketsConfig[i][1])) {
-			str = str.slice(0, str.indexOf(bracketsConfig[i][0] + bracketsConfig[i][1]))
-			+ str.slice(str.indexOf(bracketsConfig[i][0] + bracketsConfig[i][1]) + 2);	
-		}		
-	})
- 	if (str.length > 0) {
- 		return false;
- 	} else {
- 		return true;
- 	}
+  var check, substr;
+
+  while ( true ) {
+    check = false;
+    bracketsConfig.forEach(config => {
+      substr = config.join('');
+      if ( str.includes( substr ) ) {
+        str = str.replace(substr, '');
+        check = true;
+      }
+    });
+    if (!check) break;
+  }
+
+  return (str.length === 0) ? true : false;
 }
 
 
